@@ -1,0 +1,78 @@
+<% include ./partials/header %>
+<% var totals = []; %>
+<% var totalEnds = 0; %>
+
+
+<% function totalScores(score) { %>
+    <% var total = 0; %>
+    <% score.forEach(function(i) { %>
+    <%      total += Number(i); %>
+    <% }); %>
+    <% totals.push(total); %>
+    <% return total; %>
+
+<% } %>
+
+<% function runningTotal(tot) {         %>
+<%    var sum = 0;                     %>
+<%    tot.forEach(function(i) {         %>
+<%        sum += i;                     %>
+<%    });                             %>
+<%    return sum;                     %>
+<% }                                %>
+
+<% function calcAverage(x, y) {        %>
+<%    return Math.round(x / y.length); %>
+<% }                                   %>
+
+
+<div class="container">
+    <h2>Score Keeper</h2>
+   
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Target</th>
+                <th>Scores</th>
+                <th>Total</th> 
+            </tr>
+        </thead>
+
+<% archery.forEach(function(score) { %>
+<% Number(score); %>
+<% totalEnds += 1; %>
+<% var dateString = score.date.slice(0,24) %>
+    <tr>
+    <td><%= dateString %></td>
+    <td><%= score.target_type %></td>
+    <td><%= score.scores; %></td>
+    <td><%= totalScores(score.scores) %></td></tr>
+<% }); %>
+    </table>
+    
+    <div class="dropdown filterdropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    <i class="fa fa-search"></i> Filter by Date
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+      <% var dates = []; %>
+      <% archery.forEach(function(score) { %>
+        <% var dateString = score.date.slice(0,15) %>
+        <% if (dates.indexOf(dateString) === -1) { %>
+            <li><a href="/filter/<%= score.order %>"><%= dateString %></a></li> 
+            <% dates.push(dateString) %>
+        <% } %>
+               
+        <% }); %>
+    
+  </ul>
+</div>
+     
+    <p class="text-right">Current Average Score <span class="badge"><%= calcAverage(runningTotal(totals), totals) %></p>
+    <p class="text-right">Total Ends Recorded <span class="badge"><%= totalEnds %></span></p>        
+
+<br><p class="text-right"><strong>Very</strong> beta. Use with caution.<br>Currently assumes 6 arrows per end and defaults to tri-spots.</p>
+</div>
+<% include ./partials/footer %>

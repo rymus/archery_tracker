@@ -1,0 +1,73 @@
+<% include ./partials/header %>
+<script>   
+    var arrows = [];
+    function testFunc(x) {
+        var sc = Number(x);
+        arrows.push(sc);
+        if (arrows.length < 6) {
+            // document.getElementById("scoreForm").submit();
+            // document.getElementById("arrows").value += " " + x;
+            document.getElementById("arrows").value = arrows;
+            document.getElementById("bawls").classList.toggle("unselect");
+        } else if (arrows.length > 6) {
+            
+        } else {
+           document.getElementById("arrows").value = arrows;
+           document.getElementById("scoreForm").submit(); 
+        }
+    };
+    </script>
+    
+   
+   <div class="container">    
+    
+    <div class="row">
+        
+       <% for (var i = 10; i >= 0; i--) { %>
+            <div class="col-xs-4"><img src="/images/<%= i %>.png" onclick="testFunc(<%= i %>)"></div>
+          <%  } %>
+    </div>
+    
+
+    
+    
+    <form action="/entry" method="POST" id="scoreForm">
+    <div class="form-group">
+        <!--<input type="text" name="scores"> -->
+    </div>
+    <h2 id="score_display"></h2>
+    <center><input type="text" id="arrows" name="arrows"></center>
+  
+   <!--Dropdown for target type-->
+
+   <select name="targetType" id="targetDropdown">
+      <option selected value="tri-spot">tri-spot</option>
+      <option value="forty">Forty</option>
+      <option value="other">Other</option>
+    </select>
+      <!--Submit button to save to DB-->
+      <!-No longer required as form submits after 6th entry--->
+   <!--<button>Submit</button>-->
+   </form>
+        
+    </div>
+   
+         <!--   <form name="add" action="/campgrounds" method="POST">-->
+         <!--       <div class="form-group">-->
+         <!--           <input class="form-control" type="text" name="name" placeholder="Camp Name" required="required">-->
+         <!--       </div>-->
+         <!--       <div class="form-group">-->
+         <!--           <input id="campimage" class="form-control" type="text" name="image" placeholder="Image URL" required="required">-->
+         <!--       </div>-->
+         <!--       <div class="form-group">-->
+         <!--           <textarea id="campdesc" class="form-control" name="Camp Description" placeholder="description" required="required"></textarea>-->
+         <!--       </div>-->
+         <!--       <div class="form-group">-->
+         <!--           <button class="btn btn-large btn-primary btn-block">Submit</button>-->
+         <!--       </div>-->
+         <!--   </form>-->
+         <!--<a href="/">Go Back</a>-->
+
+<% include ./partials/footer %>
+
+
