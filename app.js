@@ -75,7 +75,8 @@ app.get("/filter/:ord", function(req, res) {
       }
    });
 });
+const PORT = 8080;
 
-app.listen(process.env.PORT, process.env.IP, function () {
-    console.log("server started");
+app.listen(PORT, function () {
+    console.log("server started on " + PORT);
 });
