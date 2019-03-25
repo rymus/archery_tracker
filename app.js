@@ -25,7 +25,6 @@ app.use(express.static(__dirname+ "/public"));
 // var Archery = mongoose.model("Archery", archerySchema);
 
 // routes
-
 app.get("/", function(req, res) {
     Archery.find({}).sort({order: -1}).exec(function(err, allarchery) {
        if(err) {
